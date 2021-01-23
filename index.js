@@ -3,30 +3,51 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 const port = 3000;
 
 const client = new Client({
   user: "postgres",
-  host: "127.0.0.1",
+  host: "localhost",
   database: "blog",
-  password: "",
-  port: 54320,
+  password: "blah",
+  port: 5432,
 });
 
 app.get("/", (req, res) => {
-  res.sendFile("views/root.html", { root: __dirname });
+  const selectallQuery = `select * from blog`;
+  client.query(selectallQuery, (err, result) => {
+    if (err) {
+      res.send("error");
+    } else {
+      console.log(result);
+      res.render("root", {
+       allblogs : result.rows
+      });
+    }
+  });
+  //res.sendFile("views/root.html", { root: __dirname });
 });
-
+// app.get("/", (req, res) => {
+//   const selectallQuery = `select * from blog`;
+//   client.query(selectallQuery, (err, result)=>{
+//     if(err) {
+//       res.send("error");
+//     }
+//     else{
+//       res.send("Sucessfully Fetched All blogs");
+//     }
+//   })
+// });
 app.get("/new", (req, res) => {
   res.sendFile("views/newBlog.html", { root: __dirname });
 });
 
 app.get("/blog/:title", (req, res) => {
   const blogTitle = req.params.title;
-  const selectQuery = `select * from blogs where title='${blogTitle}'`;
+  const selectQuery = `select * from blog where title='${blogTitle}'`;
   client.query(selectQuery, (err, result) => {
     if (err) {
       res.send("error");
@@ -42,7 +63,7 @@ app.get("/blog/:title", (req, res) => {
 app.post("/blog", (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
-  const insertQuery = `insert into blogs(title, content) VALUES ('${title}', '${content}')`;
+  const insertQuery = `insert into blog(title, content) VALUES ('${title}', '${content}')`;
   client.query(insertQuery, (err, result) => {
     if (err) {
       console.log("failure", err);
