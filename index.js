@@ -22,25 +22,13 @@ app.get("/", (req, res) => {
     if (err) {
       res.send("error");
     } else {
-      console.log(result);
-      res.render("root", {
-       allblogs : result.rows
-      });
+      console.log(result.rows);
+      res.render("root", {allblog : result.rows});
     }
   });
   //res.sendFile("views/root.html", { root: __dirname });
 });
-// app.get("/", (req, res) => {
-//   const selectallQuery = `select * from blog`;
-//   client.query(selectallQuery, (err, result)=>{
-//     if(err) {
-//       res.send("error");
-//     }
-//     else{
-//       res.send("Sucessfully Fetched All blogs");
-//     }
-//   })
-// });
+
 app.get("/new", (req, res) => {
   res.sendFile("views/newBlog.html", { root: __dirname });
 });

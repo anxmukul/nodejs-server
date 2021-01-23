@@ -3,7 +3,11 @@
   <body>
     <h1>Hello World</h1>
     <a href="/new">Create Blog</a>
-    <h3>Links To different blog</h3>
-    <%= allblogs %>
+    <h3>Links To different blog</h3>  
+    <ul>
+      <% for(var i=0; i<allblog.length; i++) { %>
+        <li> <%= allblog[i].title %> </li>
+      <% } %>
+    </ul>
   </body>
 </html>
