@@ -1,16 +1,15 @@
 <html>
   <head></head>
   <body>
-    <h1>Hello World</h1>
-    <a href="/new">Create Blog</a>
-    <h3>Links To different blog</h3>  
-    <table> 
+    <h1>Hello World!</h1>
+    <a href="/new" style="padding: 2%;">Create Blog</a><br><br>
+    <table border="1" style="width: 60%;"> 
       <tr>
-        <th>Title</th>
+        <th style=" padding: 2%;">Blogs</th>
       </tr>
           <% for(var i=0; i<allblog.length; i++) { %>
             <tr>
-              <td>
+              <td style="padding: 0.5%;">
                 <a href="/blog/<%= allblog[i].title %>"><%= allblog[i].title %></a>
               </td>
             </tr>
@@ -18,4 +17,3 @@
     </table>
   </body>
 </html>
-<!-- method="POST" action="/blog" -->
