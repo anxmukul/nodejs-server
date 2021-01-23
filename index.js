@@ -28,7 +28,6 @@ app.get("/", (req, res) => {
   });
   //res.sendFile("views/root.html", { root: __dirname });
 });
-
 app.get("/new", (req, res) => {
   res.sendFile("views/newBlog.html", { root: __dirname });
 });
