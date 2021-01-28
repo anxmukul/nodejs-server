@@ -1,6 +1,17 @@
 <html>
     <head></head>
     <body>
-        <p>You can edit your blog here</p>
+        <h3>Edit Blog:</h3>     
+        <form method="POST" action = "/edit">
+            <p>Blog Id</p>
+            <input type = 'text', name="id" value="<%= blogId %>"></input><br>
+            <p>Title</p>
+            <input type="text" name="title" value="<%= title %>"></input>
+            <br>
+            <p>Content</p>
+            <textarea type="text" name="content" rows="20" cols="100"><%= content %></textarea>
+            <br><br>
+            <button type="Update">Update</button>
+          </form>
     </body>
 </html>

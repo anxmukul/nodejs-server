@@ -42,6 +42,7 @@ app.get("/", (req, res) => {
 app.get("/new", (req, res) => {
   res.sendFile("views/newBlog.html", { root: __dirname });
 });
+
 app.get("/edit/:title", (req, res) => {
   const blogTitle = req.params.title;
   console.log(blogTitle);
@@ -50,14 +51,13 @@ app.get("/edit/:title", (req, res) => {
     if (err) {
       res.send("error");
     } else {
-      console.log(result.rows[0].title)
       res.render("edit", {
+        blogId: result.rows[0].id,
         title: result.rows[0].title,
         content: result.rows[0].content,
       });
     }
-  });
-  
+  }); 
 })
 app.get("/blog/:title", (req, res) => {
   const blogTitle = req.params.title;
@@ -66,7 +66,7 @@ app.get("/blog/:title", (req, res) => {
     if (err) {
       res.send("error");
     } else {
-      console.log(result.rows[0].title)
+      console.log(result);
       res.render("blog", {
         title: result.rows[0].title,
         content: result.rows[0].content,
@@ -87,7 +87,20 @@ app.post("/blog", (req, res) => {
     }
   });
 });
-
+app.post("/edit", (req, res) => {
+  const blogId = req.body.id;
+  const title = req.body.title;
+  const content = req.body.content;
+  const updateQuery = `update blogs set title = '${title}' , content = '${content}' where id = ${blogId}`;
+  client.query(updateQuery, (err, result) => {
+    if (err) {
+      console.log("failure", err);
+    } else {
+      res.redirect(`/blog/${title}`);
+      //res.send("Updated");
+    }
+  });
+})
 app.listen(port, () => {
   client.connect();
   console.log(`connected to database: successfully`);
