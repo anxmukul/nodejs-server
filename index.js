@@ -42,7 +42,23 @@ app.get("/", (req, res) => {
 app.get("/new", (req, res) => {
   res.sendFile("views/newBlog.html", { root: __dirname });
 });
-
+app.get("/edit/:title", (req, res) => {
+  const blogTitle = req.params.title;
+  console.log(blogTitle);
+  const selectSql = `select * from blogs where title='${blogTitle}'`;
+  client.query(selectSql, (err, result) => {
+    if (err) {
+      res.send("error");
+    } else {
+      console.log(result.rows[0].title)
+      res.render("edit", {
+        title: result.rows[0].title,
+        content: result.rows[0].content,
+      });
+    }
+  });
+  
+})
 app.get("/blog/:title", (req, res) => {
   const blogTitle = req.params.title;
   const selectQuery = `select * from blogs where title='${blogTitle}'`;

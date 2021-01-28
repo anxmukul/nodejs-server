@@ -5,13 +5,14 @@
     <a href="/new" style="padding: 2%;">Create Blog</a><br><br>
     <table border="1" style="width: 60%;"> 
       <tr>
-        <th style=" padding: 2%;">Blogs</th>
+        <th style=" padding: 2%;" colspan="2">Blogs</th>
       </tr>
           <% for(var i=0; i<allblog.length; i++) { %>
             <tr>
               <td style="padding: 0.5%;">
                 <a href="/blog/<%= allblog[i].title %>"><%= allblog[i].title %></a>
               </td>
+              <td><a href="/edit/<%= allblog[i].title %>">Edit</a></td>
             </tr>
           <% } %>
     </table>
