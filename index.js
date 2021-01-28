@@ -10,19 +10,32 @@ const port = 3000;
 
 const client = new Client({
   user: "postgres",
-  host: process.env.host_name,
-  database: "blog",
-  password: process.env.password,
-  port: process.env.portnumber,
+  host: process.env.hostName,
+  database: process.env.dataBase,
+  password: process.env.passWord,
+  port: process.env.portNumber,
 });
 
 app.get("/", (req, res) => {
+  var today = new Date()
+  var curHr = today.getHours()
+
+  if (curHr < 12) {
+    var greeting = 'Good Morning';
+  } else if (curHr < 18) {
+    var greeting = 'Good Afternoon';
+  } else {
+    var greeting = 'Good Evening'
+  }
   const selectallQuery = `select * from blogs`;
   client.query(selectallQuery, (err, result) => {
     if (err) {
       res.send("error");
     } else {
-      res.render("root", {allblog : result.rows});
+      res.render("root", {
+        allblog : result.rows,
+        greet   : greeting
+      });
     }
   });
 });
@@ -37,6 +50,7 @@ app.get("/blog/:title", (req, res) => {
     if (err) {
       res.send("error");
     } else {
+      console.log(result.rows[0].title)
       res.render("blog", {
         title: result.rows[0].title,
         content: result.rows[0].content,
