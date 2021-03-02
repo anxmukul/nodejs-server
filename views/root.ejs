@@ -1,20 +1,32 @@
 <html>
-  <head></head>
-  <body>
-    <h2 style="color: indianred;"><%= greet %></h2>
-    <a href="/new" style="padding: 2%;">Create Blog</a><br><br>
-    <table border="1" style="width: 60%;"> 
-      <tr>
-        <th style=" padding: 2%;" colspan="2">Blogs</th>
-      </tr>
-          <% for(var i=0; i<allblog.length; i++) { %>
-            <tr>
-              <td style="padding: 0.5%;">
-                <a href="/blog/<%= allblog[i].title %>"><%= allblog[i].title %></a>
-              </td>
-              <td><a href="/edit/<%= allblog[i].title %>">Edit</a></td>
-            </tr>
-          <% } %>
-    </table>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Telivigala&family=Open+Sans:ital@1&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+  </head>
+  <body style="background-color: #fae1c9;">
+    <div style="background-color: rgb(200, 58, 58);">
+      <h2 style="color:white; text-align: center; font-family: 'Akaya Kanadaka', cursive;"><%= greet %></h2>
+      <p style=" color:white; font-family: 'Open Sans', sans-serif; font-size: 30px; text-align: center; padding: 15px 30px;">Publish your thought on a topic. Its free</p>
+      <form action="/new" style="text-align: center; padding: 15px 32px;">
+        <input style="font-size: 20px; font-family: 'Open Sans', sans-serif; color:white; background-color: #ff8800;  border-radius: 4px;" type="submit" value="CREATE YOUR BLOG" />
+      </form>
+    </div>
+      <table border="1" style="width: 100%"> 
+        <tr>
+          <th style="padding: 2%; font-family: sans-serif;" colspan="2" >New Blogs</th>
+        </tr>
+            <% for(var i=0; i<allblog.length; i++) { %>
+              <tr>
+                <td style="padding: 0.5%;">
+                  <a href="/blog/<%= allblog[i].title %>"><%= allblog[i].title %></a>
+                </td>
+                <td><a href="/edit/<%= allblog[i].title %>">Edit</a></td>
+              </tr>
+            <% } %>
+      </table>  
+      <div>
+          
+      </div>  
   </body>
 </html>

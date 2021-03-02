@@ -11,8 +11,8 @@ const port = 3000;
 const client = new Client({
   user: "postgres",
   host: process.env.hostName,
-  database: process.env.dataBase,
-  password: process.env.passWord,
+  database: process.env.database,
+  password: process.env.password,
   port: process.env.portNumber,
 });
 
